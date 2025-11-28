@@ -8,6 +8,7 @@ import {
     Platform,
     ScrollView,
     Alert,
+    Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -61,9 +62,12 @@ export default function LoginScreen() {
                     <View className="flex-1 px-6 pt-20">
                         {/* Logo and Title */}
                         <View className="items-center mb-12">
-                            <View className="bg-primary w-24 h-24 rounded-3xl items-center justify-center mb-6 shadow-lg">
-                                <Ionicons name="school" size={48} color="white" />
-                            </View>
+                            <Image
+                                source={require('../../assets/university-logo.png')}
+                                style={{ width: 120, height: 120 }}
+                                resizeMode="contain"
+                                className="mb-6"
+                            />
                             <Text className="text-3xl font-bold text-primary mb-2">
                                 Student Portal
                             </Text>

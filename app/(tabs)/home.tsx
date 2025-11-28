@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -15,16 +15,32 @@ interface MenuCard {
 }
 
 export default function HomeScreen() {
-    const [userName, setUserName] = useState('John Doe');
+    const [userName, setUserName] = useState('Student');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchUserData();
     }, []);
 
     const fetchUserData = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user?.user_metadata?.full_name) {
-            setUserName(user.user_metadata.full_name);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                // Fetch profile from profiles table
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('full_name')
+                    .eq('id', user.id)
+                    .single();
+
+                if (profile?.full_name) {
+                    setUserName(profile.full_name);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
