@@ -42,9 +42,13 @@
       "typedRoutes": true
     },
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "your-project-id-here"
+        "projectId": "a1e988ef-611a-4b4f-8376-f960231d2f12"
       }
-    }
+    },
+    "owner": "birukbejiga123"
   }
 }
